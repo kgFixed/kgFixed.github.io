@@ -5,7 +5,7 @@ on:
     inputs:
       organization:
         description: GitHub organization to scan
-        required: true
+        required: false
         type: string
 
 permissions:
@@ -19,11 +19,19 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const org = core.getInput('organization');
+            const orgInput = (core.getInput('organization') || '').trim();
+            const org = (orgInput || context.repo.owner || '').trim();
             const perPage = 100;
             let page = 1;
             let totalCount = 0;
             const resultsByRepo = new Map();
+
+            if (!org) {
+              core.setFailed('Organization is required and could not be inferred from the workflow context.');
+              return;
+            }
+
+            core.info(`Scanning org: ${org}`);
 
             while (true) {
               const response = await github.rest.search.code({
