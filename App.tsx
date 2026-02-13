@@ -4,15 +4,13 @@ import { AppState } from './types';
 
 type InitialRepo = {
 	url: string;
-	amount_of_fragments: number;
-	size: number;
 };
 
 // Default sources to search from (fallback if remote config fails)
 const INITIAL_REPOS: InitialRepo[] = [
-	{ url: 'https://kgfixed.github.io/vocab.nerc.ac.uk/P02/latest.ttl', amount_of_fragments: 150, size: 2048 },
-	{ url: 'https://kgfixed.github.io/vocab.nerc.ac.uk/P06/latest.ttl', amount_of_fragments: 230, size: 3072 },
-	{ url: 'https://kgfixed.github.io/vocab.nerc.ac.uk/S25/latest.ttl', amount_of_fragments: 180, size: 2560 }
+	{ url: 'https://kgfixed.github.io/vocab.nerc.ac.uk/P02/latest.ttl' },
+	{ url: 'https://kgfixed.github.io/vocab.nerc.ac.uk/P06/latest.ttl' },
+	{ url: 'https://kgfixed.github.io/vocab.nerc.ac.uk/S25/latest.ttl' }
 ];
 
 // Example remote config URL for initial repos
@@ -26,13 +24,6 @@ const App: React.FC = () => {
 	const [initialRepos, setInitialRepos] = useState<InitialRepo[]>(INITIAL_REPOS);
 	const [searchQuery, setSearchQuery] = useState('');
 	const [isRefreshing, setIsRefreshing] = useState(false);
-
-	const formatBytes = useCallback((bytes: number) => {
-		if (!Number.isFinite(bytes) || bytes <= 0) return '0 B';
-		if (bytes < 1024) return `${Math.round(bytes)} B`;
-		if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-		return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-	}, []);
 
 	const fetchInitialRepos = useCallback(async () => {
 		try {
@@ -49,10 +40,6 @@ const App: React.FC = () => {
 			const repos: InitialRepo[] = typedData
 				.map(item => ({
 					url: typeof item.url === 'string' ? item.url.trim() : '',
-					amount_of_fragments: Number.isFinite(item.amount_of_fragments)
-						? Number(item.amount_of_fragments)
-						: 0,
-					size: Number.isFinite(item.size) ? Number(item.size) : 0,
 				}))
 				.filter(item => item.url.length > 0);
 
@@ -114,8 +101,6 @@ const App: React.FC = () => {
 	}, []);
 
 	const activeFeed = state.feeds.find(f => f.baseUrl === state.selectedFeed);
-	const totalFragments = initialRepos.reduce((sum, repo) => sum + repo.amount_of_fragments, 0);
-	const totalSize = initialRepos.reduce((sum, repo) => sum + repo.size, 0);
 	const filteredRepos = initialRepos.filter(repo =>
 		repo.url.toLowerCase().includes(searchQuery.trim().toLowerCase())
 	);
@@ -130,7 +115,7 @@ const App: React.FC = () => {
 							<div className="bg-blue-600 p-1.5 rounded-lg">
 								<Zap size={20} className="text-white fill-white" />
 							</div>
-							<span className="text-xl font-black tracking-tighter text-slate-800">LDES NAVIGATOR</span>
+							<span className="text-xl font-black tracking-tighter text-slate-800">KgFixed LDES Navigator</span>
 						</div>
 
 						<div className="flex items-center gap-4">
@@ -144,13 +129,6 @@ const App: React.FC = () => {
 								/>
 								<Search size={16} className="absolute left-3.5 text-slate-400" />
 							</div>
-							<button
-								onClick={refreshAll}
-								disabled={isRefreshing}
-								className="p-2 text-slate-500 hover:text-blue-600 transition-colors disabled:opacity-50"
-							>
-								<RefreshCw size={20} className={isRefreshing ? 'animate-spin' : ''} />
-							</button>
 						</div>
 					</div>
 				</div>
@@ -171,9 +149,6 @@ const App: React.FC = () => {
 								<span className="text-xs bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full font-bold">
 									{initialRepos.length}
 								</span>
-								<div className="mt-1 text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
-									{totalFragments} fragments • {formatBytes(totalSize)}
-								</div>
 							</div>
 						</div>
 
@@ -210,20 +185,6 @@ const App: React.FC = () => {
 												}`}>
 													{isLoaded ? 'Loaded' : 'Idle'}
 												</span>
-											</div>
-											<div className="mt-4 grid grid-cols-2 gap-3 text-xs">
-												<div className="rounded-xl bg-slate-50 p-2">
-													<p className="text-[10px] uppercase tracking-widest text-slate-400">Fragments</p>
-													<p className="text-sm font-semibold text-slate-700">
-														{repo.amount_of_fragments}
-													</p>
-												</div>
-												<div className="rounded-xl bg-slate-50 p-2">
-													<p className="text-[10px] uppercase tracking-widest text-slate-400">Size</p>
-													<p className="text-sm font-semibold text-slate-700">
-														{formatBytes(repo.size)}
-													</p>
-												</div>
 											</div>
 										</div>
 									</button>
