@@ -1,0 +1,5 @@
+{
+  "name": "LDES Navigator",
+  "description": "A dynamic explorer for Linked Data Event Streams (LDES), allowing users to browse repositories, preview the latest members from Turtle fragments, and analyze semantic data with AI insights.",
+  "requestFramePermissions": []
+}

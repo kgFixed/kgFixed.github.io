@@ -1,0 +1,68 @@
+name: Find latest.ttl files
+
+on:
+  workflow_dispatch:
+    inputs:
+      organization:
+        description: GitHub organization to scan
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  find-latest-ttl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Search for latest.ttl files
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const org = core.getInput('organization');
+            const perPage = 100;
+            let page = 1;
+            let totalCount = 0;
+            const resultsByRepo = new Map();
+
+            while (true) {
+              const response = await github.rest.search.code({
+                q: `filename:latest.ttl org:${org}`,
+                per_page: perPage,
+                page,
+              });
+
+              if (page === 1) {
+                totalCount = response.data.total_count;
+                core.info(`Total matches: ${totalCount}`);
+              }
+
+              for (const item of response.data.items) {
+                const repoFullName = item.repository.full_name;
+                if (!resultsByRepo.has(repoFullName)) {
+                  resultsByRepo.set(repoFullName, []);
+                }
+                resultsByRepo.get(repoFullName).push({
+                  path: item.path,
+                  html_url: item.html_url,
+                });
+              }
+
+              if (response.data.items.length < perPage) {
+                break;
+              }
+              page += 1;
+            }
+
+            if (resultsByRepo.size === 0) {
+              core.info('No latest.ttl files found.');
+              return;
+            }
+
+            core.info('latest.ttl locations:');
+            for (const [repo, files] of resultsByRepo.entries()) {
+              core.info(`- ${repo}`);
+              for (const file of files) {
+                core.info(`  - ${file.path} (${file.html_url})`);
+              }
+            }

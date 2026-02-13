@@ -1,37 +1,20 @@
-## Purpose of the site
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+</div>
 
-Show the progress of research and the results already obtained.
+# Run and deploy your AI Studio app
 
-## How to display github pages
+This contains everything you need to run your app locally.
 
-Add this code to package.json to enable github pages to be added:
+View your app in AI Studio: https://ai.studio/apps/drive/1pMCi73nFzuNRnP3IOMsz-ylYxOH1-G9W
 
-```
-"name": "kg-fixed",
-"private": true,
-"version": "0.0.0",
-"type": "module",
-"homepage": "https://kgfixed.github.io/kg-fixed.github.io/",
-```
+## Run Locally
 
-Modification of the information in vite.config.ts with the addition of :
+**Prerequisites:**  Node.js
 
-```
-base: './',
-```
 
-This allowed me to access my data in the assets folder of github-pages.
-
-To publish the page after modifying the frontend:
-
-```
-npm run build / build the projet
-npm run deploy / This is what publishes the
-```
-
-Then wait a few minutes to see the changes to the link:
-
-```
-https://kgfixed.github.io/kg-fixed.github.io/
-```
-
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
