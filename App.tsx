@@ -106,16 +106,16 @@ const App: React.FC = () => {
 	);
 
 	return (
-		<div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 text-slate-900">
+		<div className="min-h-screen flex flex-col bg-[linear-gradient(180deg,var(--vliz-ice),#ffffff_45%,var(--vliz-sand))] text-[var(--vliz-ink)]">
 			{/* Navbar */}
-			<nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+			<nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-[var(--vliz-mist)]">
 				<div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex justify-between items-center h-16">
 						<div className="flex items-center gap-2">
-							<div className="bg-blue-600 p-1.5 rounded-lg">
+							<div className="bg-[#354d9b] p-1.5 rounded-lg">
 								<Zap size={20} className="text-white fill-white" />
 							</div>
-							<span className="text-xl font-black tracking-tighter text-slate-800">KgFixed LDES Navigator</span>
+							<span className="text-xl font-black tracking-tighter text-[var(--vliz-ink)]">KgFixed LDES Navigator</span>
 						</div>
 
 						<div className="flex items-center gap-4">
@@ -125,7 +125,7 @@ const App: React.FC = () => {
 									value={searchQuery}
 									onChange={(e) => setSearchQuery(e.target.value)}
 									placeholder="Search repositories..."
-									className="w-64 pl-10 pr-4 py-2 bg-slate-100 border-none rounded-full text-sm focus:ring-2 focus:ring-blue-500 transition-all focus:w-80 outline-none"
+									className="w-64 pl-10 pr-4 py-2 bg-[var(--vliz-ice)] border-none rounded-full text-sm focus:ring-2 focus:ring-[#354d9b] transition-all focus:w-80 outline-none"
 								/>
 								<Search size={16} className="absolute left-3.5 text-slate-400" />
 							</div>
@@ -134,19 +134,19 @@ const App: React.FC = () => {
 				</div>
 			</nav>
 
-			<main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+			<main className="max-w-[1600px] mx-auto w-full flex-1 px-4 sm:px-6 lg:px-8 py-8">
 				<div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 					{/* Left Panel: Repository Catalog */}
 					<div className="lg:col-span-4 space-y-6">
 						<div className="flex items-center justify-between">
 							<div>
-								<h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+								<h2 className="text-sm font-bold text-[var(--vliz-blue)] uppercase tracking-widest flex items-center gap-2">
 									KgFixed Catalog Of Feeds
 								</h2>
 								<p className="text-xs text-slate-400">Configured sources and stats</p>
 							</div>
 							<div className="text-right">
-								<span className="text-xs bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full font-bold">
+								<span className="text-xs bg-[var(--vliz-ice)] text-[var(--vliz-blue)] px-2 py-0.5 rounded-full font-bold">
 									{initialRepos.length}
 								</span>
 							</div>
@@ -166,8 +166,8 @@ const App: React.FC = () => {
 										}}
 										className={`w-full text-left rounded-2xl border transition-all group ${
 											isActive
-												? 'border-blue-500/60 bg-white shadow-lg shadow-blue-100'
-												: 'border-slate-200/70 bg-white/90 hover:border-blue-400/40 hover:shadow-md'
+												? 'border-[#354d9b] bg-white shadow-lg shadow-blue-100'
+												: 'border-[var(--vliz-mist)] bg-white/95 hover:border-[#354d9b]/50 hover:shadow-md'
 										}`}
 									>
 										<div className="p-4">
@@ -180,8 +180,8 @@ const App: React.FC = () => {
 												</div>
 												<span className={`text-[10px] px-2 py-1 rounded-full font-bold uppercase tracking-wider ${
 													isLoaded
-														? 'bg-emerald-100 text-emerald-700'
-														: 'bg-slate-100 text-slate-500'
+														? 'bg-[#e6f4f1] text-[#1f6f7a]'
+														: 'bg-[#fff2e8] text-[#c45c24]'
 												}`}>
 													{isLoaded ? 'Loaded' : 'Idle'}
 												</span>
@@ -192,7 +192,7 @@ const App: React.FC = () => {
 							})}
 
 							{filteredRepos.length === 0 && !isRefreshing && (
-								<div className="text-center py-12 px-4 border-2 border-dashed rounded-xl border-slate-200 text-slate-400">
+								<div className="text-center py-12 px-4 border-2 border-dashed rounded-xl border-[var(--vliz-mist)] text-slate-400">
 									<AlertCircle size={40} className="mx-auto mb-3 opacity-20" />
 									<p>
 										{searchQuery.trim().length > 0
@@ -208,18 +208,18 @@ const App: React.FC = () => {
 					<div className="lg:col-span-8">
 						{activeFeed ? (
 							<div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
-								<div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 lg:p-8">
+								<div className="bg-white rounded-2xl border border-[var(--vliz-mist)] shadow-sm p-6 lg:p-8">
 									<div className="mb-8">
-										<div className="flex items-center gap-2 text-blue-600 mb-2">
+										<div className="flex items-center gap-2 text-[#354d9b] mb-2">
 											<span className="text-xs font-bold uppercase tracking-widest">Selected Fragment Explorer</span>
 										</div>
 										<h1 className="text-3xl font-extrabold text-slate-900 mb-2">{activeFeed.title}</h1>
 										<div className="flex flex-wrap gap-4 items-center text-sm text-slate-500">
-											<a href={activeFeed.latestTtlUrl} target="_blank" rel="noreferrer" className="text-blue-600 hover:underline font-medium">Open TTL</a>
+											<a href={activeFeed.latestTtlUrl} target="_blank" rel="noreferrer" className="text-[#354d9b] hover:underline font-medium">Open TTL</a>
 										</div>
 									</div>
 
-									<div className="rounded-2xl border border-slate-200 overflow-hidden bg-white">
+									<div className="rounded-2xl border border-[var(--vliz-mist)] overflow-hidden bg-white">
 										<iframe
 											title="LDES Explorer"
 											src={buildExplorerUrl(activeFeed.latestTtlUrl)}
@@ -231,8 +231,8 @@ const App: React.FC = () => {
 								</div>
 							</div>
 						) : (
-							<div className="h-full min-h-[400px] flex flex-col items-center justify-center bg-white rounded-2xl border-2 border-dashed border-slate-200 text-slate-400 p-12 text-center">
-								<div className="bg-slate-50 p-6 rounded-full mb-6">
+							<div className="h-full min-h-[400px] flex flex-col items-center justify-center bg-white rounded-2xl border-2 border-dashed border-[var(--vliz-mist)] text-slate-400 p-12 text-center">
+								<div className="bg-[var(--vliz-ice)] p-6 rounded-full mb-6">
 									<Database size={64} className="opacity-20" />
 								</div>
 								<h3 className="text-xl font-bold text-slate-700 mb-2">Select a Feed to Explore</h3>
@@ -245,9 +245,57 @@ const App: React.FC = () => {
 				</div>
 			</main>
 
-			<footer className="mt-20 border-t border-slate-200 py-12 bg-white">
-				<div className="max-w-[1600px] mx-auto px-4 text-center">
-					<p className="text-sm text-slate-400 mb-2">LDES Navigator made by vliz-be-opsci</p>
+			<footer className="mt-auto border-t border-[var(--vliz-mist)] py-12 bg-[var(--vliz-blue)] text-white">
+				<div className="max-w-[1600px] mx-auto px-4">
+					<div className="grid gap-8 lg:grid-cols-3">
+						<div>
+							<h3 className="text-lg font-bold">VLIZ Open Science</h3>
+							<p className="mt-3 text-sm text-blue-100">
+								Delivering linked data exploration with VLIZ-inspired design.
+							</p>
+							<p className="mt-4 text-xs text-blue-200">© 2023 VLIZ. All rights reserved</p>
+						</div>
+						<div>
+							<h4 className="text-sm font-semibold uppercase tracking-widest text-blue-100">Policies</h4>
+							<div className="mt-3 flex flex-col gap-2 text-sm">
+								<a className="hover:text-white/80" href="https://www.vliz.be/en/privacy" target="_blank" rel="noreferrer">Privacy Policy</a>
+								<a className="hover:text-white/80" href="https://www.vliz.be/en/terms-use" target="_blank" rel="noreferrer">Terms of Use</a>
+							</div>
+						</div>
+						<div>
+							<h4 className="text-sm font-semibold uppercase tracking-widest text-blue-100">Partners</h4>
+							<div className="mt-4 flex flex-wrap gap-3">
+								<a
+									href="https://www.vliz.be/"
+									target="_blank"
+									rel="noreferrer"
+									className="flex items-center justify-center rounded-xl bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wider"
+								>
+									VLIZ
+								</a>
+								<a
+									href="https://www.vlaanderen.be/"
+									target="_blank"
+									rel="noreferrer"
+									className="flex items-center justify-center rounded-xl bg-white/10 px-3 py-2"
+								>
+									<img
+										alt="Vlaanderen"
+										src="https://assets.vlaanderen.be/image/upload/widgets/vlaanderen-verbeelding-werkt_geel.svg"
+										className="h-6"
+									/>
+								</a>
+								<a
+									href="https://www.west-vlaanderen.be/"
+									target="_blank"
+									rel="noreferrer"
+									className="flex items-center justify-center rounded-xl bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wider"
+								>
+									West-Vlaanderen
+								</a>
+							</div>
+						</div>
+					</div>
 				</div>
 			</footer>
 
@@ -256,6 +304,14 @@ const App: React.FC = () => {
 
 				:root {
 					--app-font: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+					--vliz-blue: #354d9b;
+					--vliz-blue-dark: #2b3d7b;
+					--vliz-ink: #1b2340;
+					--vliz-ice: #f2f5fb;
+					--vliz-mist: #dbe3f2;
+					--vliz-sand: #f6f1e9;
+					--vliz-teal: #2b7d8a;
+					--vliz-orange: #e07b39;
 				}
 
 				body {
