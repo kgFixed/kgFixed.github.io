@@ -14,7 +14,7 @@ const INITIAL_REPOS: InitialRepo[] = [
 ];
 
 // Example remote config URL for initial repos
-const INITIAL_REPOS_URL = 'https://example.com/initial-repos.json';
+const INITIAL_REPOS_URL = 'https://raw.githubusercontent.com/kgFixed/kgFixed.github.io/refs/heads/main/feeds.json';
 
 const App: React.FC = () => {
 	const [state, setState] = useState<AppState>({

@@ -1,17 +1,17 @@
 [
 	{
-		"url": "https://kgfixed.github.io/vocab.nerc.ac.uk/P02/latest.ttl",
-		"amount_of_fragments": 150,
-		"size": 2048
+		"url": "https://kgfixed.github.io/vocab.nerc.ac.uk/P02/latest.ttl"
 	},
 	{
-		"url": "https://kgfixed.github.io/vocab.nerc.ac.uk/P06/latest.ttl",
-		"amount_of_fragments": 230,
-		"size": 3072
+		"url": "https://kgfixed.github.io/vocab.nerc.ac.uk/P06/latest.ttl"
 	},
 	{
-		"url": "https://kgfixed.github.io/vocab.nerc.ac.uk/S25/latest.ttl",
-		"amount_of_fragments": 180,
-		"size": 2560
+		"url": "https://kgfixed.github.io/vocab.nerc.ac.uk/S25/latest.ttl"
+	},
+    {
+		"url": "https://kgfixed.github.io/vocab.nerc.ac.uk/P01/latest.ttl"
+	},
+    {
+		"url": "w3id.org/kgfixed/ror.org/LDES/latest.ttl"
 	}
 ]
