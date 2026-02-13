@@ -247,8 +247,7 @@ const App: React.FC = () => {
 
 			<footer className="mt-20 border-t border-slate-200 py-12 bg-white">
 				<div className="max-w-[1600px] mx-auto px-4 text-center">
-					<p className="text-sm text-slate-400 mb-2">LDES Navigator Built with React and Gemini 3 Flash</p>
-					<p className="text-[10px] text-slate-300 uppercase tracking-widest font-bold">Semantic Web Technologies • Dynamic Viewer</p>
+					<p className="text-sm text-slate-400 mb-2">LDES Navigator made by vliz-be-opsci</p>
 				</div>
 			</footer>
 
